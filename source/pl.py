@@ -10,12 +10,11 @@ def solve_partage_eq(n,p,U=None,w=None):
 	Renvoie la valeur à l'optimum, l'affectation et le temps de résolution
 	"""
 	if U is None:
-		U = np.random.randint(n*p*10,size=(n,p))
+		U = np.random.randint(10,size=(n,p))
 	if w==None:
-		w = np.flip(np.sort(np.random.choice(np.arange(1,p),size=n,replace=False)))
+		w = np.flip(np.sort(np.random.choice(np.arange(1,10*n),size=n,replace=False)))
 
 	wp = [w[i]-w[i+1] for i in range(n-1)] + [w[n-1]]
-
 	m = gp.Model()
 	m.Params.outPutFlag = 0
 
@@ -28,11 +27,12 @@ def solve_partage_eq(n,p,U=None,w=None):
 	c1 = m.addConstrs((r[k]-b[i,k] <= gp.quicksum([U[i,j]*x[i,j] for j in range(p)]) for i in range(n) for k in range(n)),name='cb1')
 	c2 = m.addConstrs((gp.quicksum(x[:,j]) == 1 for j in range(p)),name='cb2')
 
-	start = time.time()
+	m.update()
+	m.update()
 	m.optimize()
-	end = time.time()
+	t = m.Runtime
 	
-	return m.ObjVal, np.array(x.X), end-start
+	return m.ObjVal, np.array(x.X), t
 
 def solve_partage_ut(n,p,U=None):
 	"""
@@ -51,8 +51,8 @@ def solve_partage_ut(n,p,U=None):
 
 	c = m.addConstrs((gp.quicksum(x[:,j]) == 1 for j in range(p)),name='c')
 
-	start = time.time()
+	m.update()
 	m.optimize()
-	end = time.time()
+	t = m.Runtime
 	
-	return m.ObjVal, np.array(x.X), end-start
+	return m.ObjVal, np.array(x.X), t
