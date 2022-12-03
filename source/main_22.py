@@ -8,10 +8,17 @@ def main():
 			for n in range(5,26,5):
 				mesures = []
 				for i in range(10):
-					mesures.append(pl.solve_partage_eq(n,5*n)[2])
+					tl = None
+					fail = 0
+					t = pl.solve_partage_eq(n,5*n,time_limit=tl)[2]
+					"""while t >= tl:
+						fail += 1
+						print("Time limit exceeded -> nouvelle mesure")
+						t = pl.solve_partage_eq(n,5*n,time_limit=tl)[2]"""
+					mesures.append(t)
 					print(n,str(i+1)+"/10",mesures[-1])
 				
-				f.write(str(n)+" "+str(np.mean(mesures))+'\n')
+				f.write(str(n)+" "+str(np.mean(mesures))+" "+str(fail)+'\n')
 	except IOError as err:
 	    print(err.errno)
 	    print(err.strerror)
