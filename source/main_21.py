@@ -2,6 +2,9 @@ import pl
 import numpy as np
 
 def main():
+	"""
+	Code utilisé dans la question 2.1
+	"""
 	n = 3
 	p = 6
 	U = np.array([[325,225,210,115,75,50],\

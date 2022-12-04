@@ -2,6 +2,9 @@ import pl
 import numpy as np
 
 def main():
+	"""
+	Code utilisé dans la question 4.1
+	"""
 	G = {'a':{'b':[5,3],\
 			  'c':[10,4],\
 			  'd':[2,6]},\

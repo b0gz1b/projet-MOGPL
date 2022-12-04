@@ -2,6 +2,9 @@ import gurobipy as gp
 from gurobipy import GRB
 
 def main():
+	"""
+	Code utilisé dans la question 1.2
+	"""
 	L = [4,7,1,3,9,2]
 	Lk = []
 	for k in range(1,len(L)+1):

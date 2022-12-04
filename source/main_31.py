@@ -2,6 +2,9 @@ import pl
 import numpy as np
 
 def main():
+	"""
+	Code utilisé dans la question 3.1
+	"""
 	n = 2
 	p = 4
 	c = [40,50,60,50]

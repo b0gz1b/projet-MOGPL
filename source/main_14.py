@@ -2,6 +2,9 @@ import gurobipy as gp
 from gurobipy import GRB
 
 def main():
+	"""
+	Code utilisé dans la question 1.4
+	"""
 	ex1 = gp.Model("Exemple 1")
 	ex1.Params.outPutFlag = 0
 	b = ex1.addVars(4,vtype=GRB.CONTINUOUS,name="b")

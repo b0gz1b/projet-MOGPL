@@ -3,6 +3,10 @@ import gurobipy as gp
 from gurobipy import GRB
 import time
 
+"""
+Contient les PL permettant la résolution des parties 2,3 et 4
+"""
+
 def solve_partage_eq(n,p,U,w,time_limit=None):
 	"""
 	Résout le partage équitable au sens de la pondération w entre n individus de p objets
@@ -56,7 +60,8 @@ def solve_partage_ut(n,p,U,time_limit=None):
 
 def solve_selection_eq(n,p,c,U,w,time_limit=None):
 	"""
-	
+	Résout la sélection équitable parmi p projets au sens de la pondération w et des utilités U de taille n*p
+	sous contrainte budgétaire sum(c)/2
 	"""
 
 	wp = [w[i]-w[i+1] for i in range(n-1)] + [w[n-1]]
@@ -83,7 +88,7 @@ def solve_selection_eq(n,p,c,U,w,time_limit=None):
 
 def solve_selection_ut(n,p,c,U,time_limit=None):
 	"""
-	
+	Résout la sélection parmi p projets maximisant les utilités U de taille n*p 
 	"""
 
 	m = gp.Model()
@@ -107,7 +112,7 @@ def solve_prc(G,s,a,g,time_limit=None):
 	"""
 	G représente le graphe par un liste d'adjacence sous forme de dictionnaire 
 	qui pour chaque sommet référence la dicitionnaire des voisins et la valuation
-	de l'arc dans les différents scénarios
+	de l'arc dans les différents scénarios. Résout le plus court chemin de a à g dans le scénario s
 	"""
 	m = gp.Model()
 	m.Params.outPutFlag = 0
@@ -135,7 +140,7 @@ def solve_prc_rob(G,n,a,g,w,time_limit=None):
 	"""
 	G représente le graphe par un liste d'adjacence sous forme de dictionnaire 
 	qui pour chaque sommet référence la dicitionnaire des voisins et la valuation
-	de l'arc dans les différents scénarios
+	de l'arc dans les différents scénarios. Résout chemin robuste dans tout les scénarios de a à g au sens de la pondération w.
 	"""
 
 	wp = [w[i]-w[i+1] for i in range(n-1)] + [w[n-1]]

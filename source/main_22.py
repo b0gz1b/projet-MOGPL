@@ -3,6 +3,9 @@ import numpy as np
 from uuid import uuid4
 
 def main():
+	"""
+	Code utilisé dans la question 2.2
+	"""
 	try:
 		with open("tmp/temps_resolution_ex2_"+str(uuid4())+".dat","w") as f:
 			for n in range(5,26,5):

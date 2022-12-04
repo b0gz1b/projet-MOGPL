@@ -4,6 +4,9 @@ from uuid import uuid4
 from matplotlib import pyplot as plt
 
 def main():
+	"""
+	Code utilisé dans la question 4.3
+	"""
 	n = 2
 	m = 12
 	tl = 500
