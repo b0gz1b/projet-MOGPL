@@ -12,7 +12,7 @@ def main():
 	mesures = np.zeros((len(ws),20,2))
 	
 	for i in range(20):
-		t = np.random.randint(1,101,size=(12,2))
+		t = np.random.randint(1,1501,size=(12,2))
 		G = {'a':{'b':t[0],\
 				  'c':t[1],\
 				  'd':t[2]},\
@@ -30,16 +30,28 @@ def main():
 			_,c,_ = pl.solve_prc_rob(G,n,'a','g',ws[j])
 			mesures[j,i,0] = t_chemin_s(G,c,0)
 			mesures[j,i,1] = t_chemin_s(G,c,1)
-	plt.figure()
+
+	lt = np.min(mesures)
+	ut = np.max(mesures)
+
+	idf = str(uuid4())
+
 	for i in range(len(mesures)):
 		plt.figure()
 		plt.plot(*mesures[i].T,'o')
 		plt.ylabel('$t^1$')
 		plt.xlabel('$t^2$')
-		plt.xlim((np.min(mesures[:,:,0])-3, np.max(mesures[:,:,0])+3))
-		plt.ylim((np.min(mesures[:,:,1])-3, np.max(mesures[:,:,1])+3))
+		evo = i
+		while evo > 0:
+			for j in range(len(mesures[evo])):
+				if np.any(mesures[evo][j]!=mesures[evo-1][j]):
+					plt.plot(*mesures[evo-1][j].T,marker='o',color='grey',alpha=np.exp(evo-i-0.3))
+					plt.arrow(*mesures[evo-1][j].T,*(mesures[evo][j]-mesures[evo-1][j]).T,color='grey',alpha=np.exp(evo-i-0.3))
+			evo -= 1
+		plt.xlim((lt*0.85, ut*1.15))
+		plt.ylim((lt*0.85, ut*1.15))
 		plt.title("Durées sur 20 instances aléatoires pour w("+str(i+1)+")")
-		plt.savefig('tmp/ex43_w_'+str(i+1)+'_'+str(uuid4())+'.png')
+		plt.savefig('tmp/ex43_w_'+str(i+1)+'_'+idf+'.png')
 	return 0
 
 def w_alpha(alpha,n):
