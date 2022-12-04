@@ -8,9 +8,9 @@ def main():
 			for n in range(5,26,5):
 				mesures = []
 				for i in range(10):
-					tl = None
+					tl = 600
 					fail = 0
-					t = pl.solve_partage_eq(n,5*n,time_limit=tl)[2]
+					t = pl.solve_partage_eq(n,5*n,np.random.randint(10,size=(n,5*n)),np.flip(np.sort(np.random.choice(np.arange(1,n*10),size=n,replace=False))),time_limit=tl)[2]
 					"""while t >= tl:
 						fail += 1
 						print("Time limit exceeded -> nouvelle mesure")
